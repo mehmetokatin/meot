@@ -59,6 +59,7 @@
       <tr><td>Yazılan soru şablonları, ödevler</td><td class="ort">–</td><td class="ort">✓</td><td>Öğretmen girer</td></tr>
       <tr><td>Öğretmen davet kaydı (kodu kimin, kimin için oluşturduğu ve hangi hesabın kullandığı)</td><td class="ort">–</td><td class="ort">✓</td><td>Davet kodu kullanılınca</td></tr>
       <tr><td>Yüklenen soru fotoğrafları</td><td class="ort">–</td><td class="ort">✓</td><td>Öğretmen yükler; saklanmaz</td></tr>
+      <tr><td>Velinin e-posta adresi ve onay zamanı (18 yaşından küçük öğrencilerde)</td><td class="ort">✓</td><td class="ort">–</td><td>Kayıtta öğrenci girer; onay zamanı veli onay sayfasında onaylayınca kaydedilir</td></tr>
       <tr><td>IP adresi (sınıf kodu ve öğretmen kodu denemelerinde)</td><td class="ort">✓</td><td class="ort">✓</td><td>Kayıt ekranında kod girilince otomatik; kötüye kullanımı önlemek için</td></tr>
     </table></div>
     <p>MeoT; gerçek ad, T.C. kimlik numarası, telefon, adres, konum, rehber, fotoğraf arşivi veya ödeme bilgisi toplamaz. Özel nitelikli kişisel veri (sağlık, din vb.) işlenmez.</p>
@@ -92,6 +93,7 @@
       <tr><td>Anthropic</td><td>Soru fotoğrafından şablon önerisi, soruların hikâyeli halinin önerilmesi</td><td>Yalnızca öğretmenin yüklediği fotoğraf ve yazdığı soru metni; kişisel veri içermez</td><td>ABD</td></tr>
       <tr><td>Expo</td><td>Bildirimlerin iletilmesi</td><td>Bildirim adresi ve bildirim metni (mesaj bildiriminde öğretmenin takma adı ve mesajın ilk 120 karakteri)</td><td>ABD</td></tr>
       <tr><td>Apple (APNs)</td><td>Bildirimin iPhone'a ulaşması</td><td>Bildirim adresi ve bildirim metni</td><td>ABD</td></tr>
+      <tr><td>Google (Gmail)</td><td>E-posta gönderimi (doğrulama kodu, şifre sıfırlama, veli onayı)</td><td>Alıcının e-posta adresi ve e-postanın içeriği</td><td>ABD</td></tr>
     </table></div>
     <p>Veriler ayrıca, yasal olarak zorunlu olduğu durumlarda yetkili kamu kurumlarıyla paylaşılabilir. Bunun dışında kimseyle paylaşılmaz.</p>
 
@@ -103,6 +105,7 @@
       <tr><td>Sınıf üyelikleri</td><td>Sınıftan çıkınca, sınıf silinince veya hesabınızı silince silinir</td></tr>
       <tr><td>Mesajlar</td><td>Öğretmen silene kadar; öğretmen hesabını silince gönderdiği mesajlar da silinir. Öğrenci hesabını silince okunma bilgisi silinir</td></tr>
       <tr><td>Öğretmen davet kayıtları</td><td>Kullanılmamış kodlar 14 gün sonra geçersiz olur; kodu kullanan hesap silinince kayıttaki hesap bağlantısı kaldırılır</td></tr>
+      <tr><td>Velinin e-posta adresi ve onay zamanı</td><td>Öğrencinin hesabı açık olduğu sürece (onayın kanıtı olarak); hesapla birlikte silinir</td></tr>
       <tr><td>Bildirim adresi</td><td>Çıkış yapınca veya cihaz geçersiz olunca hemen silinir</td></tr>
       <tr><td>IP adresi ve istek sayaçları</td><td>En fazla 2 gün; sonra otomatik silinir</td></tr>
       <tr><td>Öğretmenin yüklediği soru fotoğrafı</td><td>MeoT saklamaz; Anthropic, kendi politikasına göre kısa bir süre tutabilir ve modellerini eğitmek için kullanmaz</td></tr>
@@ -111,9 +114,10 @@
     <p>Yasal bir yükümlülük daha uzun saklamayı gerektirirse veriler yalnızca o süre kadar ve erişime kapalı olarak tutulur.</p>
 
     <h2>6. 18 yaşından küçük kullanıcılar</h2>
-    <p>MeoT'u 18 yaşından küçük öğrenciler de kullanabilir; bu öğrenciler kayıt olmadan önce velilerinin onayını almalıdır.</p>
+    <p>MeoT'u 18 yaşından küçük öğrenciler de kullanabilir; bu öğrencilerin hesabı velilerinin onayıyla kullanılır.</p>
     <ul>
-      <li>Kayıt ekranında 18 yaşından küçük öğrenci, velisinin bu metni okuduğunu ve onay verdiğini beyan eder.</li>
+      <li>Kayıt ekranında 18 yaşından küçük öğrenci, velisinin e-posta adresini yazar. Veliye, bu metnin bağlantısını ve bir onay sayfasını içeren bir e-posta gönderilir.</li>
+      <li>Veli onaylayana kadar öğrenci soru çözebilir ama sıralamada ve sınıf arkadaşlarının listesinde görünmez. 7 gün içinde onay verilmezse hesap ve tüm verileri kendiliğinden silinir. Veli onay sayfasından hesabı hemen de sildirebilir.</li>
       <li>Bu nedenle mümkün olan en az veri toplanır: gerçek ad yerine takma ad, telefon ve konum yok.</li>
       <li>Veliler, çocuklarının hesabıyla ilgili tüm hakları (7. madde) kullanabilir ve hesabın silinmesini isteyebilir.</li>
       <li>Velisinin onayı olmadan açıldığını öğrendiğimiz bir hesabı, veliyle iletişime geçerek siliriz.</li>

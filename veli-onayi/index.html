@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<title>MeoT Veli Onayı</title>
+<link rel="icon" href="../assets/favicon.png">
+<link rel="apple-touch-icon" href="../assets/ikon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap">
+<link rel="stylesheet" href="../assets/stil.css">
+<style>
+  .dugmeler { display: flex; flex-direction: column; gap: 14px; margin: 24px 0 8px; }
+  .dugme { font: 900 17px var(--metin); border: 2.5px solid var(--lacivert); border-radius: 999px; padding: 14px 22px; cursor: pointer; }
+  .ana { background: var(--lacivert); color: #fff; box-shadow: 0 5px 0 var(--altin); }
+  .ikincil { background: #fff; color: #A63D40; border-color: #A63D40; }
+  .dugme:disabled { opacity: .55; cursor: default; }
+  .durum { font-weight: 800; }
+  .hata { color: #A63D40; font-weight: 800; }
+  .gizli { display: none; }
+</style>
+</head>
+<body>
+<div class="sayfa">
+  <header class="ust">
+    <a href="../"><img src="../assets/logo-yazi.png" alt="MeoT ana sayfa"></a>
+  </header>
+
+  <main>
+    <h1>Veli onayı</h1>
+    <p id="yukleniyor" class="not">Bilgiler yükleniyor…</p>
+    <p id="hata" class="hata gizli"></p>
+
+    <section id="soru" class="gizli">
+      <p>Çocuğunuz MeoT'a <b id="ad"></b> takma adıyla kaydoldu ve sizi velisi olarak gösterdi.</p>
+      <div class="ozet">
+        <p>MeoT, öğretmenin hazırladığı matematik sorularını çözmeye yarayan bir uygulamadır.</p>
+        <ul>
+          <li>Gerçek ad, telefon, konum veya fotoğraf <b>istemez</b>.</li>
+          <li>Tutulanlar: e-posta adresi, takma ad, katıldığı sınıf, çözdüğü sorular ve puanları.</li>
+          <li>Öğretmeni çözümlerini görür; sınıf arkadaşları yalnızca takma adını ve puanını görür.</li>
+          <li>Reklam yoktur, veriler satılmaz. Hesap istendiği an uygulamadan silinebilir.</li>
+        </ul>
+        <p class="not" style="font-weight:700;margin:0">Ayrıntılar: <a href="../gizlilik/">Gizlilik Politikası ve KVKK Aydınlatma Metni</a></p>
+      </div>
+      <p class="not" id="sure"></p>
+      <div class="dugmeler">
+        <button class="dugme ana" id="onayla">Okudum, onaylıyorum</button>
+        <button class="dugme ikincil" id="reddet">Onaylamıyorum, hesabı sil</button>
+      </div>
+    </section>
+
+    <section id="sonuc" class="gizli">
+      <div class="ozet"><p id="sonucYazi" style="margin:0"></p></div>
+      <p class="not">Sorularınız için: <a href="mailto:meot.destek@gmail.com">meot.destek@gmail.com</a></p>
+    </section>
+  </main>
+
+  <footer class="alt">
+    <span>© 2026 MeoT · Mehmet Okatın</span>
+    <a href="../gizlilik/">Gizlilik</a>
+  </footer>
+</div>
+<script>
+(function () {
+  var ADRES = 'https://dkchxkdmnsnhpsqxkkxx.supabase.co/functions/v1/veli-onayi';
+  var anahtar = new URLSearchParams(location.search).get('k') || '';
+  // Anahtar adres çubuğunda kalmasın (geçmişte, paylaşılan ekran görüntülerinde)
+  try { history.replaceState(null, '', location.pathname); } catch (e) {}
+
+  function $(id) { return document.getElementById(id); }
+  function goster(id) { $(id).classList.remove('gizli'); }
+  function gizle(id) { $(id).classList.add('gizli'); }
+  function hata(m) { gizle('yukleniyor'); $('hata').textContent = m; goster('hata'); }
+  function sonuc(m) { gizle('soru'); gizle('yukleniyor'); $('sonucYazi').textContent = m; goster('sonuc'); }
+
+  function iste(islem) {
+    return fetch(ADRES, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ islem: islem, anahtar: anahtar })
+    }).then(function (c) {
+      return c.json().then(function (j) {
+        if (!c.ok) throw new Error(j && j.hata ? j.hata : 'Bir sorun oluştu. Biraz sonra tekrar deneyin.');
+        return j;
+      });
+    });
+  }
+
+  if (!anahtar) { hata('Bu sayfayı e-postadaki bağlantıdan açın.'); return; }
+
+  iste('bilgi').then(function (b) {
+    gizle('yukleniyor');
+    $('ad').textContent = '"' + b.takma_ad + '"';
+    if (b.durum === 'onaylandi') {
+      sonuc('Bu hesap için onayınızı daha önce verdiniz. Teşekkürler! Fikrinizi değiştirirseniz aşağıdaki düğmeyle hesabı silebilirsiniz.');
+      goster('soru'); gizle('onayla'); return;
+    }
+    var gun = new Date(b.silinme).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long' });
+    $('sure').textContent = 'Onay vermezseniz hesap ' + gun + ' tarihinde tüm verileriyle birlikte kendiliğinden silinir.';
+    goster('soru');
+  }).catch(function (e) { hata(e.message); });
+
+  $('onayla').onclick = function () {
+    $('onayla').disabled = true; $('reddet').disabled = true;
+    iste('onayla').then(function () {
+      sonuc('Onayınız kaydedildi. Teşekkürler! Çocuğunuz artık sınıfının sıralamasında da görünecek.');
+    }).catch(function (e) { $('onayla').disabled = false; $('reddet').disabled = false; hata(e.message); });
+  };
+
+  $('reddet').onclick = function () {
+    if (!confirm('Hesap ve bütün verileri kalıcı olarak silinecek. Emin misiniz?')) return;
+    $('onayla').disabled = true; $('reddet').disabled = true;
+    iste('reddet').then(function () {
+      sonuc('Hesap ve bütün verileri silindi.');
+    }).catch(function (e) { $('onayla').disabled = false; $('reddet').disabled = false; hata(e.message); });
+  };
+})();
+</script>
+</body>
+</html>
