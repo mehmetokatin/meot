@@ -26,9 +26,10 @@
       <div class="tablo"><table>
         <tr><th>Ne topluyoruz</th><th>Neden</th><th>Nerede saklanıyor</th></tr>
         <tr><td>E-posta ve şifre</td><td>Hesabınıza giriş</td><td>Supabase, Frankfurt (Almanya)</td></tr>
-        <tr><td>Takma ad, sınıf</td><td>Sıralama ve sınıfınızı görmek</td><td>Supabase, Frankfurt</td></tr>
+        <tr><td>Takma ad, sınıf üyelikleri</td><td>Sıralama ve sınıflarınızı görmek</td><td>Supabase, Frankfurt</td></tr>
         <tr><td>Soru çözümleri, puan, hatalar</td><td>İlerlemenizi ve eksiklerinizi göstermek</td><td>Supabase, Frankfurt</td></tr>
-        <tr><td>Bildirim adresi (cihaz kodu)</td><td>Yeni ödev bildirimi göndermek</td><td>Supabase; iletim Expo ve Apple üzerinden</td></tr>
+        <tr><td>Öğretmenin gönderdiği duyurular</td><td>Öğretmenin öğrencilerine haber vermesi</td><td>Supabase, Frankfurt</td></tr>
+        <tr><td>Bildirim adresi (cihaz kodu)</td><td>Yeni ödev ve mesaj bildirimi göndermek</td><td>Supabase; iletim Expo ve Apple üzerinden</td></tr>
         <tr><td>Öğretmenin yüklediği soru fotoğrafı</td><td>Sorudan şablon önerisi çıkarmak</td><td>Saklanmaz; işlenmek üzere Anthropic'e (ABD) gönderilir</td></tr>
       </table></div>
     </div>
@@ -47,16 +48,26 @@
       <tr><td>E-posta adresi</td><td class="ort">✓</td><td class="ort">✓</td><td>Kayıt sırasında siz girersiniz</td></tr>
       <tr><td>Şifre (geri dönüştürülemez biçimde şifrelenmiş)</td><td class="ort">✓</td><td class="ort">✓</td><td>Kayıt</td></tr>
       <tr><td>Takma ad</td><td class="ort">✓</td><td class="ort">✓</td><td>Kayıt; gerçek adınızı kullanmamanızı öneririz</td></tr>
-      <tr><td>Rol ve sınıf bilgisi</td><td class="ort">✓</td><td class="ort">✓</td><td>Sınıf kodu</td></tr>
+      <tr><td>Rol, üye olunan sınıflar ve her sınıfa katılma tarihi</td><td class="ort">✓</td><td class="ort">✓</td><td>Sınıf kodu; bir öğrenci birden fazla sınıfa katılabilir</td></tr>
       <tr><td>Çözülen sorular, verilen cevaplar, doğru/yanlış, puan, süre bilgisi</td><td class="ort">✓</td><td class="ort">–</td><td>Uygulamayı kullanırken</td></tr>
       <tr><td>Yanlış cevaplardan çıkarılan hata türü (hata teşhisi)</td><td class="ort">✓</td><td class="ort">–</td><td>Uygulama otomatik üretir</td></tr>
       <tr><td>Ödev sonuçları ve kazanılan rozetler</td><td class="ort">✓</td><td class="ort">–</td><td>Uygulama</td></tr>
       <tr><td>Bildirim adresi (cihaz kodu) ve cihaz türü (iOS/Android)</td><td class="ort">✓</td><td class="ort">–</td><td>Bildirim izni verirseniz</td></tr>
+      <tr><td>Bildirim tercihleri (ödev ve mesaj bildirimleri açık/kapalı)</td><td class="ort">✓</td><td class="ort">–</td><td>Ayarlar'dan siz seçersiniz</td></tr>
+      <tr><td>Mesajlar: duyuru metni, kimlere gönderildiği, gönderim zamanı</td><td class="ort">–</td><td class="ort">✓</td><td>Öğretmen yazar</td></tr>
+      <tr><td>Mesajın ilk okunduğu zaman</td><td class="ort">✓</td><td class="ort">–</td><td>Uygulama, öğrenci mesajı açınca kaydeder</td></tr>
       <tr><td>Yazılan soru şablonları, ödevler</td><td class="ort">–</td><td class="ort">✓</td><td>Öğretmen girer</td></tr>
+      <tr><td>Öğretmen davet kaydı (kodu kimin, kimin için oluşturduğu ve hangi hesabın kullandığı)</td><td class="ort">–</td><td class="ort">✓</td><td>Davet kodu kullanılınca</td></tr>
       <tr><td>Yüklenen soru fotoğrafları</td><td class="ort">–</td><td class="ort">✓</td><td>Öğretmen yükler; saklanmaz</td></tr>
-      <tr><td>IP adresi (sınıf kodu denemelerinde)</td><td class="ort">✓</td><td class="ort">–</td><td>Kayıt ekranında sınıf kodu girilince otomatik; kötüye kullanımı önlemek için</td></tr>
+      <tr><td>IP adresi (sınıf kodu ve öğretmen kodu denemelerinde)</td><td class="ort">✓</td><td class="ort">✓</td><td>Kayıt ekranında kod girilince otomatik; kötüye kullanımı önlemek için</td></tr>
     </table></div>
     <p>MeoT; gerçek ad, T.C. kimlik numarası, telefon, adres, konum, rehber, fotoğraf arşivi veya ödeme bilgisi toplamaz. Özel nitelikli kişisel veri (sağlık, din vb.) işlenmez.</p>
+
+    <p><strong>Sınıflar.</strong> Bir sınıfa yalnızca öğretmenin verdiği katılım koduyla katılınır. Öğretmen bir öğrenciyi sınıfından çıkarabilir; öğrenci bir sınıftan ayrılmak isterse öğretmenine ya da bize yazabilir.</p>
+    <p><strong>Kim neyi görür.</strong> Öğretmen yalnızca kendi sınıflarındaki öğrencilerin takma adlarını ve bu öğrencilerin <strong>kendi hazırladığı sorulardaki ve kendi verdiği ödevlerdeki</strong> çözümlerini görür. Öğrencinin başka bir öğretmenin sınıfındaki çalışmaları ona görünmez. Sınıf arkadaşları birbirinin yalnızca takma adını ve sıralamadaki puanını görür.</p>
+    <p><strong>Mesajlar.</strong> Mesajlaşma tek yönlüdür: öğretmen öğrencilerine duyuru gönderir, öğrenciler cevap yazamaz. Öğretmen, mesajını kimlerin okuduğunu görür. Öğretmen gönderdiği mesajı silebilir; silinen mesaj öğrencilerin kutusundan da kalkar.</p>
+    <p><strong>Takma ad ve bildirimler.</strong> Takma adınızı ve bildirim tercihlerinizi Ayarlar'dan değiştirebilirsiniz. Kapattığınız türde bildirim gönderilmez.</p>
+    <p><strong>Öğretmen hesapları.</strong> Öğretmen hesabı yalnızca MeoT'un verdiği, tek kullanımlık ve 14 gün geçerli davet koduyla açılır.</p>
 
     <h2>3. Amaçlar ve hukuki sebepler</h2>
     <p>Verileriniz yalnızca aşağıdaki amaçlarla ve KVKK m. 5/2'deki hukuki sebeplere dayanılarak işlenir.</p>
@@ -65,7 +76,9 @@
       <tr><td>Hesap oluşturma, giriş ve sınıfa katılma</td><td>(c) Sözleşmenin kurulması ve ifası</td></tr>
       <tr><td>Soru üretme, cevapları kontrol etme, puan ve sıralama</td><td>(c) Sözleşmenin ifası</td></tr>
       <tr><td>Öğretmenin öğrencinin sonuçlarını ve hatalarını görmesi, ödev vermesi</td><td>(c) Sözleşmenin ifası</td></tr>
-      <tr><td>Yeni ödev bildirimi göndermek</td><td>Cihazınızdaki bildirim izni ve (c) sözleşmenin ifası</td></tr>
+      <tr><td>Öğretmenin öğrencilerine duyuru göndermesi ve okunduğunu görmesi</td><td>(c) Sözleşmenin ifası</td></tr>
+      <tr><td>Yeni ödev ve mesaj bildirimi göndermek</td><td>Cihazınızdaki bildirim izni ve (c) sözleşmenin ifası</td></tr>
+      <tr><td>Öğretmen hesaplarının yalnızca davetle açılması</td><td>(f) Meşru menfaat</td></tr>
       <tr><td>Hizmetin güvenliği, kötüye kullanımın önlenmesi</td><td>(f) Meşru menfaat</td></tr>
       <tr><td>Yasal yükümlülüklerin yerine getirilmesi</td><td>(ç) Hukuki yükümlülük</td></tr>
     </table></div>
@@ -75,9 +88,9 @@
     <p>MeoT, hizmeti sunabilmek için aşağıdaki hizmet sağlayıcıları kullanır. Bunların sunucuları Türkiye dışındadır; bu nedenle KVKK m. 9 kapsamında yurt dışına aktarım söz konusudur.</p>
     <div class="tablo"><table>
       <tr><th>Sağlayıcı</th><th>Ne için</th><th>Hangi veri</th><th>Konum</th></tr>
-      <tr><td>Supabase</td><td>Veritabanı, giriş ve sunucu fonksiyonları</td><td>Bu metindeki tüm hesap ve kullanım verileri</td><td>AB, Frankfurt (Almanya)</td></tr>
+      <tr><td>Supabase</td><td>Veritabanı, giriş ve sunucu fonksiyonları</td><td>Bu metindeki tüm hesap ve kullanım verileri (mesajlar ve sınıf üyelikleri dahil)</td><td>AB, Frankfurt (Almanya)</td></tr>
       <tr><td>Anthropic</td><td>Soru fotoğrafından şablon önerisi</td><td>Yalnızca öğretmenin yüklediği fotoğraf</td><td>ABD</td></tr>
-      <tr><td>Expo</td><td>Bildirimlerin iletilmesi</td><td>Bildirim adresi ve bildirim metni</td><td>ABD</td></tr>
+      <tr><td>Expo</td><td>Bildirimlerin iletilmesi</td><td>Bildirim adresi ve bildirim metni (mesaj bildiriminde öğretmenin takma adı ve mesajın ilk 120 karakteri)</td><td>ABD</td></tr>
       <tr><td>Apple (APNs)</td><td>Bildirimin iPhone'a ulaşması</td><td>Bildirim adresi ve bildirim metni</td><td>ABD</td></tr>
     </table></div>
     <p>Veriler ayrıca, yasal olarak zorunlu olduğu durumlarda yetkili kamu kurumlarıyla paylaşılabilir. Bunun dışında kimseyle paylaşılmaz.</p>
@@ -87,6 +100,9 @@
       <tr><th>Veri</th><th>Ne kadar saklanır</th></tr>
       <tr><td>Hesap, takma ad, çözümler, puanlar, rozetler</td><td>Hesabınız açık olduğu sürece; hesabı silince en geç 30 gün içinde silinir</td></tr>
       <tr><td>2 yıl boyunca hiç giriş yapılmayan hesaplar</td><td>E-postayla haber verildikten 30 gün sonra silinir</td></tr>
+      <tr><td>Sınıf üyelikleri</td><td>Sınıftan çıkınca, sınıf silinince veya hesabınızı silince silinir</td></tr>
+      <tr><td>Mesajlar</td><td>Öğretmen silene kadar; öğretmen hesabını silince gönderdiği mesajlar da silinir. Öğrenci hesabını silince okunma bilgisi silinir</td></tr>
+      <tr><td>Öğretmen davet kayıtları</td><td>Kullanılmamış kodlar 14 gün sonra geçersiz olur; kodu kullanan hesap silinince kayıttaki hesap bağlantısı kaldırılır</td></tr>
       <tr><td>Bildirim adresi</td><td>Çıkış yapınca veya cihaz geçersiz olunca hemen silinir</td></tr>
       <tr><td>IP adresi ve istek sayaçları</td><td>En fazla 2 gün; sonra otomatik silinir</td></tr>
       <tr><td>Öğretmenin yüklediği soru fotoğrafı</td><td>MeoT saklamaz; Anthropic, kendi politikasına göre kısa bir süre tutabilir ve modellerini eğitmek için kullanmaz</td></tr>
@@ -118,8 +134,8 @@
     <p><strong>Başvuru:</strong> <a href="mailto:meot.destek@gmail.com">meot.destek@gmail.com</a> adresine, kayıtlı e-posta adresinizden yazın. Başvurunuz en geç 30 gün içinde ücretsiz yanıtlanır. Yanıttan memnun kalmazsanız Kişisel Verileri Koruma Kurulu'na şikayette bulunabilirsiniz.</p>
 
     <h2>8. Hesap silme, güvenlik ve değişiklikler</h2>
-    <p><strong>Hesap silme:</strong> Hesabınızı istediğiniz zaman uygulamadaki <strong>Hesabımı sil</strong> düğmesiyle silebilirsiniz. Öğretmen hesabı silindiğinde verdiği ödevler de silinir; sınıfları, öğrencileri ve yazdığı sorular uygulamada kalır. Silme kalıcıdır; puanlarınız, çözümleriniz ve rozetleriniz geri getirilemez.</p>
-    <p><strong>Güvenlik:</strong> Veriler şifreli bağlantı (HTTPS) üzerinden iletilir. Şifreler geri dönüştürülemez biçimde saklanır. Her kullanıcı yalnızca kendi verilerini, öğretmenler yalnızca kendi sınıflarının verilerini görebilir. Doğru cevaplar ve puan hesabı sunucuda tutulur. Yönetici hesapları iki adımlı doğrulamayla korunur.</p>
+    <p><strong>Hesap silme:</strong> Hesabınızı istediğiniz zaman uygulamadaki <strong>Hesabımı sil</strong> düğmesiyle silebilirsiniz. Öğretmen hesabı silindiğinde verdiği ödevler de silinir; sınıfları, öğrencileri ve yazdığı sorular uygulamada kalır. Öğretmen hesabı silindiğinde gönderdiği mesajlar da silinir. Bir sınıf silindiğinde sınıfın ödevleri silinir; öğrencilerin puanları korunur. Silme kalıcıdır; puanlarınız, çözümleriniz ve rozetleriniz geri getirilemez.</p>
+    <p><strong>Güvenlik:</strong> Veriler şifreli bağlantı (HTTPS) üzerinden iletilir. Şifreler geri dönüştürülemez biçimde saklanır. Her kullanıcı yalnızca kendi verilerini, öğretmenler yalnızca kendi sınıflarındaki öğrencilerin kendi soru ve ödevlerindeki sonuçlarını görebilir. Doğru cevaplar ve puan hesabı sunucuda tutulur. Yönetici hesapları iki adımlı doğrulamayla korunur.</p>
     <p><strong>Değişiklikler:</strong> Bu metin değişirse güncel sürüm bu adreste yayınlanır. Önemli değişiklikler uygulama içinde duyurulur.</p>
   </main>
 
