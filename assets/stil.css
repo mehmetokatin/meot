@@ -1,0 +1,40 @@
+/* MeoT web sayfaları: logodaki lacivert, altın, krem */
+@font-face { font-family: "MeoT Baslik"; src: url("MeoTBaslik-Regular.ttf") format("truetype"); font-display: swap; }
+:root {
+  --krem: #F7F2E8; --lacivert: #1B2A4A; --altin: #C9A24B; --altin-koyu: #8A6A22;
+  --firuze: #1E7F86; --yumusak: #4F5B73; --kart: #FFFFFF; --cizgi: #E4DCCB;
+  --baslik: "MeoT Baslik", "Arial Rounded MT Bold", system-ui, sans-serif;
+  --metin: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--krem); color: var(--lacivert); font-family: var(--metin); font-size: 16px; line-height: 1.6; }
+a { color: var(--firuze); font-weight: 800; }
+a:focus-visible { outline: 3px solid var(--altin); outline-offset: 2px; }
+.sayfa { max-width: 760px; margin: 0 auto; padding: 32px max(20px, env(safe-area-inset-right)) 64px max(20px, env(safe-area-inset-left)); }
+.ust { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 32px; }
+.ust img { height: 44px; width: auto; display: block; }
+.ust nav { display: flex; gap: 18px; font-size: 15px; }
+h1, h2 { font-family: var(--baslik); font-weight: 400; line-height: 1.15; text-wrap: balance; }
+h1 { font-size: clamp(32px, 7vw, 46px); margin: 8px 0 12px; }
+h2 { font-size: 24px; margin: 40px 0 10px; }
+.etiket { display: inline-block; background: var(--altin); border: 2.5px solid var(--lacivert); border-radius: 16px; padding: 2px 14px; transform: rotate(-2deg); font-family: var(--baslik); font-size: clamp(26px, 6vw, 36px); }
+.ozet { background: var(--kart); border: 2.5px solid var(--lacivert); border-radius: 16px; box-shadow: 5px 5px 0 var(--lacivert); padding: 18px 20px; margin: 24px 0; }
+.ozet p { margin: 0 0 12px; font-weight: 800; }
+.tablo { overflow-x: auto; margin: 12px 0; }
+table { width: 100%; border-collapse: collapse; background: var(--kart); border: 2px solid var(--lacivert); border-radius: 12px; overflow: hidden; font-size: 15px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--cizgi); }
+th { background: var(--lacivert); color: var(--krem); font-weight: 800; }
+tr:last-child td { border-bottom: 0; }
+td.ort { text-align: center; }
+ul, ol { padding-left: 22px; }
+li { margin: 4px 0; }
+.not { color: var(--yumusak); font-size: 14px; }
+.alt { margin-top: 56px; padding-top: 18px; border-top: 2px solid var(--lacivert); color: var(--yumusak); font-size: 14px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.kahraman { padding: 24px 0 8px; }
+.kahraman p { font-size: 18px; max-width: 34em; }
+.kartlar { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; margin: 28px 0; }
+.kartlar div { background: var(--kart); border: 2.5px solid var(--lacivert); border-radius: 16px; padding: 16px 18px; }
+.kartlar b { display: block; font-family: var(--baslik); font-weight: 400; font-size: 20px; margin-bottom: 4px; }
+.denklem { font-family: var(--baslik); font-size: 22px; }
+.denklem span { color: var(--firuze); }
