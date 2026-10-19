@@ -30,6 +30,7 @@
 
   <main>
     <h1>Veli onayı</h1>
+    <p id="testUyari" class="hata gizli">TEST ORTAMI · gerçek bir hesap değildir</p>
     <p id="yukleniyor" class="not">Bilgiler yükleniyor…</p>
     <p id="hata" class="hata gizli"></p>
 
@@ -65,8 +66,12 @@
 </div>
 <script>
 (function () {
-  var ADRES = 'https://dkchxkdmnsnhpsqxkkxx.supabase.co/functions/v1/veli-onayi';
-  var anahtar = new URLSearchParams(location.search).get('k') || '';
+  // Yalnızca bu iki projeden biri: canlı ya da test (?ortam=test)
+  var PROJELER = { canli: 'dkchxkdmnsnhpsqxkkxx', test: 'qzbgcayiuzxrwxkqazid' };
+  var arama = new URLSearchParams(location.search);
+  var proje = arama.get('ortam') === 'test' ? PROJELER.test : PROJELER.canli;
+  var ADRES = 'https://' + proje + '.supabase.co/functions/v1/veli-onayi';
+  var anahtar = arama.get('k') || '';
   // Anahtar adres çubuğunda kalmasın (geçmişte, paylaşılan ekran görüntülerinde)
   try { history.replaceState(null, '', location.pathname); } catch (e) {}
 
@@ -89,6 +94,7 @@
     });
   }
 
+  if (proje === PROJELER.test) goster('testUyari');
   if (!anahtar) { hata('Bu sayfayı e-postadaki bağlantıdan açın.'); return; }
 
   iste('bilgi').then(function (b) {
