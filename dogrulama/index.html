@@ -6,26 +6,41 @@
 <meta name="robots" content="noindex">
 <title>MeoT · Doğrulama</title>
 <style>
-  html, body { margin: 0; background: transparent; }
-  body { display: flex; justify-content: center; align-items: flex-start; padding: 2px 0; }
+  html, body { margin: 0; background: #F7F2E8; font-family: -apple-system, system-ui, sans-serif; color: #1B2A4A; }
+  .sayfa { max-width: 420px; margin: 0 auto; padding: 36px 20px; display: flex; flex-direction: column; gap: 14px; align-items: center; text-align: center; }
+  h1 { font-size: 22px; margin: 0; }
+  p { margin: 0; font-size: 15px; line-height: 22px; color: #4F5B73; }
+  #kutu { margin-top: 8px; }
+  .not { font-size: 13px; color: #8A8F9C; }
 </style>
 </head>
 <body>
-<!-- MeoT uygulamasının kayıt/giriş ekranındaki "robot değilim" kutusu (Cloudflare Turnstile).
-     Uygulama bu sayfayı WebView içinde açar; sonuç window.ReactNativeWebView.postMessage ile döner.
-     Adres: ?k=<site key> -->
-<div id="kutu"></div>
+<!-- MeoT uygulamasının "robot değilim" doğrulaması (Cloudflare Turnstile).
+     Uygulama bu sayfayı açar: ?k=<site key>&d=<geri dönüş adresi>. Doğrulama bitince sayfa
+     d adresine ?token=... ekleyerek döner (uygulamanın kendi şeması), ya da WebView içindeyse
+     window.ReactNativeWebView.postMessage ile iletir. -->
+<div class="sayfa">
+  <h1>MeoT · Doğrulama</h1>
+  <p>Robot olmadığını doğruluyoruz. Çoğu zaman birkaç saniye sürer ve kendiliğinden MeoT'a dönersin.</p>
+  <div id="kutu"></div>
+  <p class="not" id="durum"></p>
+</div>
 <script>
-  var anahtar = new URLSearchParams(location.search).get('k') || '';
-  function gonder(m) { if (window.ReactNativeWebView) window.ReactNativeWebView.postMessage(JSON.stringify(m)); }
+  var p = new URLSearchParams(location.search);
+  var anahtar = p.get('k') || '';
+  var donus = p.get('d') || '';
+  function gonder(m) {
+    if (window.ReactNativeWebView) { window.ReactNativeWebView.postMessage(JSON.stringify(m)); return; }
+    if (donus && m.tur === 'token') { location.href = donus + (donus.indexOf('?') >= 0 ? '&' : '?') + 'token=' + encodeURIComponent(m.token); }
+    else if (donus && m.tur === 'hata') { document.getElementById('durum').textContent = 'Doğrulama yüklenemedi (kod ' + m.neden + '). Sayfayı yenileyip tekrar dene.'; }
+  }
   window.onloadTurnstileCallback = function () {
     if (!anahtar) { gonder({ tur: 'hata', neden: 'anahtar-yok' }); return; }
     turnstile.render('#kutu', {
       sitekey: anahtar,
       language: 'tr',
       theme: 'light',
-      size: 'flexible',
-      callback: function (token) { gonder({ tur: 'token', token: token }); },
+      callback: function (token) { document.getElementById('durum').textContent = 'Doğrulandı, MeoT\'a dönülüyor…'; gonder({ tur: 'token', token: token }); },
       'expired-callback': function () { gonder({ tur: 'suresi-doldu' }); },
       'error-callback': function (kod) { gonder({ tur: 'hata', neden: String(kod) }); return true; }
     });
