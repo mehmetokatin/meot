@@ -41,7 +41,7 @@
         <ul>
           <li>Gerçek ad, telefon, konum veya fotoğraf <b>istemez</b>.</li>
           <li>Tutulanlar: e-posta adresi, takma ad, katıldığı sınıf, çözdüğü sorular ve puanları.</li>
-          <li>Öğretmeni çözümlerini görür; sınıf arkadaşları yalnızca takma adını ve puanını görür.</li>
+          <li>Öğretmeni çözümlerini görür; sınıf arkadaşları (sınıfı yoksa sınıfı olmayan diğer öğrenciler) yalnızca takma adını ve puanını görür. Ayın genel lideri olursa takma adı bütün kullanıcılara gösterilir.</li>
           <li>Reklam yoktur, veriler satılmaz. Hesap istendiği an uygulamadan silinebilir.</li>
         </ul>
         <p class="not" style="font-weight:700;margin:0">Ayrıntılar: <a href="../gizlilik/">Gizlilik Politikası ve KVKK Aydınlatma Metni</a></p>
@@ -112,7 +112,7 @@
   $('onayla').onclick = function () {
     $('onayla').disabled = true; $('reddet').disabled = true;
     iste('onayla').then(function () {
-      sonuc('Onayınız kaydedildi. Teşekkürler! Çocuğunuz artık sınıfının sıralamasında da görünecek.');
+      sonuc('Onayınız kaydedildi. Teşekkürler! Çocuğunuz artık sıralamada da görünecek.');
     }).catch(function (e) { $('onayla').disabled = false; $('reddet').disabled = false; hata(e.message); });
   };
 
