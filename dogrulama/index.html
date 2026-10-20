@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="robots" content="noindex">
+<title>MeoT · Doğrulama</title>
+<style>
+  html, body { margin: 0; background: transparent; }
+  body { display: flex; justify-content: center; align-items: flex-start; padding: 2px 0; }
+</style>
+</head>
+<body>
+<!-- MeoT uygulamasının kayıt/giriş ekranındaki "robot değilim" kutusu (Cloudflare Turnstile).
+     Uygulama bu sayfayı WebView içinde açar; sonuç window.ReactNativeWebView.postMessage ile döner.
+     Adres: ?k=<site key> -->
+<div id="kutu"></div>
+<script>
+  var anahtar = new URLSearchParams(location.search).get('k') || '';
+  function gonder(m) { if (window.ReactNativeWebView) window.ReactNativeWebView.postMessage(JSON.stringify(m)); }
+  window.onloadTurnstileCallback = function () {
+    if (!anahtar) { gonder({ tur: 'hata', neden: 'anahtar-yok' }); return; }
+    turnstile.render('#kutu', {
+      sitekey: anahtar,
+      language: 'tr',
+      theme: 'light',
+      size: 'flexible',
+      callback: function (token) { gonder({ tur: 'token', token: token }); },
+      'expired-callback': function () { gonder({ tur: 'suresi-doldu' }); },
+      'error-callback': function (kod) { gonder({ tur: 'hata', neden: String(kod) }); return true; }
+    });
+  };
+</script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback&render=explicit" async defer></script>
+</body>
+</html>
